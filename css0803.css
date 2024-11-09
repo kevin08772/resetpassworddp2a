@@ -1,0 +1,82 @@
+body{
+    font-family: "Sofia", sans-serif;
+    display: flex;
+    background-image: url("0808.png");
+    background-position-x: center;
+    align-items: center;
+    justify-content: center;
+    
+}
+.container input{
+    display: block;
+    margin: 20px auto;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    outline: none;
+    color: aliceblue;
+}
+.container input[type="text"],.container input[ type="password"]{
+    color: #000;
+
+}
+.container button[onclick="login()"]{
+    width: 80px;
+    border:none;
+    background-color: #c24747;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    outline: none;
+    color: aliceblue;
+}
+.container button[onclick="resetFields()"]{
+    width: 80px;
+    border:none;
+    background-color: #476cc2;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    outline: none;
+    color: aliceblue;
+    
+}
+
+.container button[onclick="login()"]:hover{
+    background-color: #9c1f1f;
+    transition: 0.5s;
+}
+.container button[onclick="resetFields()"]:hover{
+    background-color: #1b325a;
+    transition: 0.5s;
+}
+
+h1{
+    color:rgb(31, 29, 112);
+    font-size: 35px;
+    letter-spacing: 10px;
+    text-align: center;
+}
+p{
+    color:rgb(110, 110, 110);
+    font-size: 15px;
+    text-align: center;
+}
+a:link {
+    color: rgb(141, 141, 141);
+}
+.eye-icon{
+    cursor: pointer;
+    position: absolute;
+    right: 650px; /* 調整眼睛圖示的位置 */
+    top: 42%;
+    transform: translateY(-50%);
+    font-size: 18px; /* 調整眼睛圖示大小 */
+}
+

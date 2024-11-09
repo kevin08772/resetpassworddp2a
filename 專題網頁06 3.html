@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入系統</title>
+    <link rel="stylesheet" href="css0803.css"> 
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Welcome</h1>
+    <h1>線上申請系統</h1>
+    <hr color="#1b0583" width="500" size="4" align="center">
+
+    <label for="role">選擇身份：</label>
+    <select id="role">
+        <option value="student">學生</option>
+        <option value="teacher">老師</option>
+    </select>
+
+    <input type="text" id="account" required placeholder="請輸入帳號">
+    <input type="password" id="password" required placeholder="請輸入密碼">
+    <span class="eye-icon" onclick="togglePasswordVisibility()">
+        👁
+    </span>
+    <button onclick="login()">登入</button>
+    <button onclick="resetFields()">重新輸入</button>
+    <p><a href="https://script.google.com/macros/s/AKfycbzrx-Jv9p_q5JyIES9_5r3d-ds_neArUM8yozkuJzm1RhcTT-wrZ7fbZWFXZMTXSMNCbA/exec" target="_blank">忘記密碼</a></p>
+
+</div>
+
+<script>
+    let validAccounts = {
+        student: {},
+        teacher: {}
+    };
+
+    async function fetchAccounts() {
+        const url = 'https://script.google.com/macros/s/AKfycbx9YtykbTS-6xLEkOU_tBQZBrH89yWP4577tYmE7DHssHX1mG0IeztjGwZuftHIt5ewDg/exec'; // 替換為你的 Google Apps Script URL
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json(); // 取得資料
+            // 假設 data 是一個對象，格式為 { "角色": { "帳號": "密碼", ... } }
+            validAccounts = { student: {}, teacher: {} };
+
+            for (const [role, accounts] of Object.entries(data)) {
+                for (const [account, password] of Object.entries(accounts)) {
+                    validAccounts[role][account] = password;
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching accounts:', error);
+            alert("無法讀取帳號資料！");
+        }
+    }
+    
+    
+
+    function resetFields() {
+        document.getElementById('account').value = '';
+        document.getElementById('password').value = '';
+    }
+
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+    }
+
+    async function login() {
+        const account = document.getElementById('account').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const role = document.getElementById('role').value;
+
+        if (!validAccounts[role]) {
+            alert("角色未正確設置或無效！");
+            return;
+        }
+
+        if (!(account in validAccounts[role])) {
+            alert("帳號錯誤！");
+        } else if (validAccounts[role][account] !== password) {
+            alert("密碼錯誤！");
+        } else {
+            alert("登入成功！");
+            if (role === "student") {
+                window.location.href = "https://www.youtube.com/watch?v=-J_w9K6DgRo&list=RD7Ux7gFBFNE8&index=3"; 
+            } else {
+                window.location.href = "https://www.youtube.com/watch?v=5c0_u9PsrsQ"; 
+            }
+        }
+    }
+
+    window.onload = fetchAccounts;
+</script>
+
+</body>
+</html>
